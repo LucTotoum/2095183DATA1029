@@ -37,5 +37,13 @@ select title, price from titles
 where not (title like 'S%' or title like 'B%') 
 and SUBSTRING(title, 2, 1) = 'o';
 
+-- Exercice 6 : 
+-- À partir de la table « titles », obtenir la liste des titres ne débutant ni par S, ni par B, mais dont la 
+-- 3ème lettre est « f ». Afficher le titre et le prix.
+-- select * from titles liste tous les titles
+select title, price from titles
+where not (title like 'S%' or title like 'B%') 
+and SUBSTRING(title, 3, 1) = 'f';
+
 
 
