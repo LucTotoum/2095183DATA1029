@@ -15,3 +15,11 @@ select * from titles; -- liste tous les titres
 select title, price from titles 
 where title like'%computer%' and title not like "computers";
 
+-- Exercice 3 : 
+-- À partir de la table « titles », obtenir la liste des titres dont l’identifiant débute par SU ou BU. 
+-- Afficher le titre et le prix de chaque livre
+select * from titles; -- liste tous les titres
+select title, price from titles 
+where title_id like"SU%" or title_id  like "BU%";
+
+
