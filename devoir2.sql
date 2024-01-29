@@ -30,5 +30,15 @@ SELECT title, price FROM titles
 WHERE NOT (title_id LIKE 'SU%' OR title_id LIKE 'BU%');
 
 
+-- Exercice 5 : 
+-- À partir de la table « titles », obtenir la liste des titres ne débutant ni par S, ni par B, mais dont la 
+-- seconde lettre est « o ». Afficher le titre et le prix.
+-- select * from titles liste tous les titles
+select title, price from titles
+where not (title like 'S%' or title like 'B%') 
+and SUBSTRING(title, 2, 1) = 'o';
+
+
+
 
 
