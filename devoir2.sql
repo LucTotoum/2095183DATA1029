@@ -22,4 +22,11 @@ select * from titles; -- liste tous les titres
 select title, price from titles 
 where title_id like"SU%" or title_id  like "BU%";
 
+-- Exercice 4 : 
+-- À partir de la table « titles », obtenir la liste des titres dont l’identifiant ne débute pas par SU ou 
+-- BU. Afficher le titre et le prix de chaque livre.
+-- select * from titles liste tous les titles
+SELECT title, price FROM titles
+WHERE NOT (title_id LIKE 'SU%' OR title_id LIKE 'BU%');
+
 
