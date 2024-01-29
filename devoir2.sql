@@ -46,6 +46,14 @@ select title, price from titles
 where not (title like 'S%' or title like 'B%') 
 and SUBSTRING(title, 3, 1) = 'f';
 
+-- Exercice 7 : 
+-- À partir de la table « titles », obtenir la liste des titres débutant par l’une des 10 premières 
+-- lettres de l’alphabet. Afficher le titre et le prix. 
+-- select * from titles liste tous les titles;
+SELECT title, price FROM titles
+WHERE LEFT(title, 1) IN ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J');
+
+
 
 
 
