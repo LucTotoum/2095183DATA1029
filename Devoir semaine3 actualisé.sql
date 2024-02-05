@@ -17,7 +17,6 @@ LEFT JOIN publishers P ON A.city = P.city;
 -- Question 3 La liste des paires (auteur, éditeur) demeurant dans la même ville, incluant 
 -- aussi les éditeurs qui ne répondent pas à ce critère
 USE library;
-
 SELECT A.au_fname, P.pub_name 
 FROM authors A
 RIGHT JOIN publishers P ON A.city = P.city;
@@ -25,7 +24,11 @@ RIGHT JOIN publishers P ON A.city = P.city;
 -- Question 4 La liste des paires (auteur, éditeur) demeurant dans la même ville, incluant aussi les auteurs et éditeurs qui ne répondent pas à ce critère
 SELECT A.au_fname, P.pub_name 
 FROM authors A
-LEFT JOIN publishers P ON A.city = P.city OR P.city IS NULL;
+LEFT JOIN publishers P ON A.city = P.city
+UNION
+SELECT A.au_fname, P.pub_name 
+FROM authors A
+RIGHT JOIN publishers P ON A.city = P.city OR P.city IS NULL;
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Question 5. Effectif(nombre) d'employes par niveau d'experience
 -- déterminons le niveau d'experience
