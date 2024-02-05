@@ -3,7 +3,7 @@
 -- bien vouloir mentionner en commentaire, le numero de la question ainsi que son enonce
 
 -- Question 1. La liste des paires (auteur, editeur) demeurant dans la même ville;
-SELECT A.au_fname, P.pub_name employees
+SELECT A.au_fname, P.pub_name 
 FROM authors A
 JOIN publishers P ON A.city = P.city;
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -44,6 +44,13 @@ JOIN publishers M ON S.pub_id = M.pub_id
 GROUP BY m.pub_name;
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Question 8- Effectif(nombre) d'employées de niveau SEINIOR par maison d'edition
+SELECT M.pub_name, COUNT(*) AS effectif_senior
+FROM employees E
+JOIN publishers M ON E.pub_id = M.pub_id
+WHERE E.job_lvl = 'SEINIOR'
+GROUP BY M.pub_name;
+-- vérifions 
+SELECT * FROM publishers, employees;
 
 
 
