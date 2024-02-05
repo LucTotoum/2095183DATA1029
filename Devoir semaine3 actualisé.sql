@@ -1,3 +1,4 @@
+USE library;
 -- Devoir semaine 3
 -- Écrire les requetes SQL pour obtenir les listes suivantes. Pour chacune des requetes,
 -- bien vouloir mentionner en commentaire, le numero de la question ainsi que son enonce
@@ -15,9 +16,11 @@ LEFT JOIN publishers P ON A.city = P.city;
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Question 3 La liste des paires (auteur, éditeur) demeurant dans la même ville, incluant 
 -- aussi les éditeurs qui ne répondent pas à ce critère
+USE library;
+
 SELECT A.au_fname, P.pub_name 
 FROM authors A
-LEFT JOIN publishers P ON A.city = P.city;
+RIGHT JOIN publishers P ON A.city = P.city;
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Question 4 La liste des paires (auteur, éditeur) demeurant dans la même ville, incluant aussi les auteurs et éditeurs qui ne répondent pas à ce critère
 SELECT A.au_fname, P.pub_name 
