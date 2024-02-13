@@ -25,4 +25,12 @@ WHERE au_id NOT IN (
     JOIN publishers p ON t.pub_id = p.pub_id
     WHERE p.pub_name = 'Harmattan'
 );
-    
+
+-- Question 2-Obtenir la liste des auteurs dont l’éditeur «Eyrolles » a publié tous les livres
+SELECT Au.*
+FROM authors Au
+JOIN titles t ON Au.au_id = t.pub_id
+JOIN publishers P ON t.pub_id = P.pub_id
+WHERE p.pub_name = 'Eyrolles';
+
+
