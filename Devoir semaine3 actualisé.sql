@@ -42,6 +42,36 @@ GROUP BY job_lvl;
 SELECT E.emp_id, M.pub_name 
 FROM employees E
 JOIN publishers M ON E.pub_id = M.pub_id;
+
+-- ou
+
+SELECT CONCAT(fname," ", lname) AS  employes , pub_name 
+FROM employees JOIN publishers ON employees.pub_id = publishers.pub_id
+ORDER BY publishers.pub_id;
+
+
+
+
+
+
+use library;
+SELECT pub_name, pub_id
+FROM publishers
+WHERE pub_id IN
+(
+SELECT pub_id
+FROM titles
+WHERE type IN ('Business' , 'psychology')
+);	
+
+SELECT pub_name, publishers.pub_id 
+from publishers
+join titles on publishers.pub_id = titles.pub_id
+where titles.type = 'Business' or titles.type = 'psychology';
+
+
+
+-- .type = 'Business' or titles.type = 'psychology';
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Question7. Salaires horaires moyens des employes par maison d'edition
 SELECT M.pub_name, AVG(S.salary) AS salaire_horaire_moyen
