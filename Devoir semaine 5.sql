@@ -77,6 +77,28 @@ advance float null,
 notes varchar(225) not null,
 pub_date date not null
 );
+use library2;
+drop table if exists sales;
+create table Sales(
+store_id tinyint not null unique /*references Stores(store_id)*/,
+ord_num tinyint null,
+title_id smallint not null /*references Titles(title_id)*/,
+ord_date datetime null,
+qty int not null,
+constraint fk_Sales foreign key (stor_id) references Stores(stor_id),
+					foreign key(title_id) references Titles(title_id)
+);
+use library2;
+drop table if exists stores;
+create table Stores(
+stor_id tinyint not null primary key,
+stor_name varchar(50) not null unique,
+stor_address varchar(50) not null unique,
+city varchar(50) not null,
+state varchar(50) null,
+country varchar(50) not null
+);
+
 
 
   
