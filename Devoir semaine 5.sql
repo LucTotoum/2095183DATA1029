@@ -63,14 +63,14 @@ title_id tinyint not null /*references Titles(title_id)*/,
 au_ord tinyint not null,
 royalty float not null,
 constraint fk_Redactions foreign key (au_id, title_id) references Authors(au_id),
-				       foreign key(title_id) references Titles(title_id)
+constraint fk_Redactions foreign key(title_id) references Titles(title_id)
 );
 use library2;
 drop table if exists Titles;
 create table Titles(
-title_id tinyint not null auto_increment unique references Titles(title_id),
+title_id tinyint not null auto_increment primary key,
 title varchar(100)not null unique,
-tipe enum("Roman","Politique","Science","Histoire")not null,
+type enum("Roman","Politique","Science","Histoire")not null,
 pub_id smallint not null references publishers(pub_id),
 price float not null,
 advance float null,
@@ -85,8 +85,8 @@ ord_num tinyint null,
 title_id smallint not null /*references Titles(title_id)*/,
 ord_date datetime null,
 qty int not null,
-constraint fk_Sales foreign key (stor_id) references Stores(stor_id),
-					foreign key(title_id) references Titles(title_id)
+constraint fk_Sales_Stores foreign key (stor_id) references Stores(stor_id),
+constraint fk_Sales_Titles foreign key(title_id) references Titles(title_id)
 );
 use library2;
 drop table if exists stores;
