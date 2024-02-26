@@ -17,10 +17,18 @@ WHERE u.full_name = 'Oumar Moussa';
 
 -- 3- Quel sont les noms de produits dont le fournisseur est basé à Moncton ? (25 
 -- points)
-USE Table_epharmacy;
 SELECT p.name AS nom_produit
 FROM product p
 JOIN supplier s ON p.supplier_id = s.id
 WHERE s.city = 'Moncton';
+
+-- Qui a passé le plus de temps une fois connecté dans l’application (10 points).
+SELECT u.full_name AS utilisateur, ch.onsite_time AS temps_passeconnection_historyuser_id
+FROM user u
+JOIN connection_history ch ON u.id = ch.user_id
+ORDER BY temps_passe DESC
+LIMIT 1;
+
+
 
 
