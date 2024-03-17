@@ -58,7 +58,7 @@ constraint pk_Authors primary key(au_id)
 use library2;
 drop table if exists Redactions;
 create table Redactions (
-au_id tinyint not null /*references Authors(au_id)*/,
+au_id tinyint not null /* references Authors(au_id)*/,
 title_id tinyint not null /*references Titles(title_id)*/,
 au_ord tinyint not null,
 royalty float not null,

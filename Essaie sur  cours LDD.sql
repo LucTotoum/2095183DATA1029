@@ -19,7 +19,7 @@ create table Authors (
     contract text,
     email varchar(50) unique check (email like '%@%')
 );
-
+ 
 -- table Jobs
 create table Jobs (
     job_id tinyint auto_increment primary key,
@@ -81,3 +81,5 @@ create table Sales (
     qty int,
     primary key (store_id, ord_num, title_id)
 );
+-- rename un table
+
