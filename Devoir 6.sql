@@ -13,3 +13,12 @@ SELECT CONCAT( fname, " ", lname) AS fullname
 FROM employees WHERE salary > (SELECT salary FROM employees 
 WHERE fname = "Norbert" AND lname = "zongo");
 
+-- 3. Noms complets des employés des éditeurs canadiens. (10 pts)
+SELECT CONCAT( fname, " ", lname) AS fullname
+FROM employees E JOIN publishers P ON E.pub_id = P.pub_id
+WHERE P.country = "canada";
+
+-- 4. Noms complets des employés qui ont un manager. (10pts)
+SELECT CONCAT( fname, " ", lname) AS fullname
+FROM employees E WHERE EXISTS ( SELECT 1 FROM employees Em
+WHERE Em.pub_id = E.pub_id AND Em.job_lvl > E.job_lvl);
