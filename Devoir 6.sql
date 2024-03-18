@@ -18,10 +18,17 @@ SELECT CONCAT( fname, " ", lname) AS fullname
 FROM employees E JOIN publishers P ON E.pub_id = P.pub_id
 WHERE P.country = "canada";
 
--- 4. Noms complets des employés qui ont un manager. (10pts)
-SELECT CONCAT( fname, " ", lname) AS fullname
-FROM employees E WHERE EXISTS ( SELECT 1 FROM employees Em
-WHERE Em.pub_id = E.pub_id AND Em.job_lvl > E.job_lvl);
+-- 4. Noms complets des employés qui ont un manager. (10pts
+-- le premier code ci-dessous est Sujet de reflexion
+-- SELECT CONCAT( fname, " ", lname) AS fullname
+-- FROM employees E WHERE EXISTS ( SELECT 1 FROM employees Em
+-- WHERE Em.pub_id = E.pub_id AND Em.job_lvl > E.job_lvl);
+-- apres constat que nous n'avons pas de niveau manger ou colonne manger, nous pouvons donc  ecrire: 
+SELECT CONCAT(fname, " ", lname) AS fullname
+FROM employees e
+JOIN jobs j ON e.job_id = j.job_id
+WHERE j.max_lvl = 'SENIOR' OR j.max_lvl = 'MANAGER';
+
 
 -- 5. Noms complets des employés qui ont un salaire au-dessus de la moyenne de 
 -- salaire chez leur employeur. (10 pts)
@@ -74,8 +81,10 @@ FROM titles t JOIN publishers p ON t.pub_id = p.pub_id
 GROUP BY p.pub_name;
 
 -- 11. Les 3 auteurs ayant les plus de livres (10 pts
-SELECT CONCAT(a.au_fname, ' ', a.au_lname) AS fullname,
-COUNT(t.title_id)AS Dcpte FROM authors a
+SELECT CONCAT(a.au_fname, ' ', a.au_lname) AS fullname, COUNT(ta.title_id) AS Dcpte
+FROM authors a
 JOIN titleauthor ta ON a.au_id = ta.au_id
-GROUP BY a.au_id, a.au_fname, a.au_lname ORDER BY Dcpte DESC limit 3;
+GROUP BY a.au_id, a.au_fname, a.au_lname
+ORDER BY Dcpte DESC
+LIMIT 3;
 
