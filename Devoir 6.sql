@@ -22,3 +22,60 @@ WHERE P.country = "canada";
 SELECT CONCAT( fname, " ", lname) AS fullname
 FROM employees E WHERE EXISTS ( SELECT 1 FROM employees Em
 WHERE Em.pub_id = E.pub_id AND Em.job_lvl > E.job_lvl);
+
+-- 5. Noms complets des employés qui ont un salaire au-dessus de la moyenne de 
+-- salaire chez leur employeur. (10 pts)
+SELECT CONCAT(fname, ' ', lname) AS fullname
+FROM employees E
+JOIN (
+    SELECT pub_id, AVG(salary) AS SM
+    FROM employees
+    GROUP BY pub_id
+) SMe ON E.pub_id = SMe.pub_id
+WHERE salary > SMe.SM;
+
+-- 6. Noms complets des employés qui ont le salaire minimum de leur grade (10 pts)
+SELECT CONCAT(fname, " ", lname) AS fullname
+FROM employees E
+JOIN (
+    SELECT job_id, MIN(salary) AS minsalary
+    FROM employees
+    GROUP BY job_id
+) min_sal ON E.job_id = min_sal.job_id AND E.salary = min_sal.minsalary;
+
+-- 7. De quels types sont les livres les plus vendus? (10 pts)
+SELECT type FROM titles t ORDER BY t.ytd_sales DESC limit 1;
+
+-- 8. Pour chaque boutique, les 2 livres les plus vendus et leurs prix. (10 pts)
+SELECT s.stor_id, t.title, t.price 
+FROM sales s 
+JOIN titles t ON s.title_id = t.title_id 
+JOIN stores st ON s.stor_id = st.stor_id
+ORDER BY s.qty DESC 
+LIMIT publisherstitleauthorsalesauthors2;
+
+-- 9. Les auteurs des 5 livres les plus vendus. (10 pts)
+SELECT CONCAT(a.au_fname, ' ', a.au_lname) AS fullname
+FROM authors a
+JOIN titleauthor ta ON a.au_id = ta.au_id
+JOIN titles t ON ta.title_id = t.title_id
+ORDER BY t.ytd_sales DESC
+LIMIT 5;-- ou encore le code en dessous
+SELECT a.au_fname, a.au_lname
+FROM authors a
+JOIN titleauthor ta ON a.au_id = ta.au_id
+JOIN titles t ON ta.title_id = t.title_id
+ORDER BY t.ytd_sales DESC
+LIMIT 5;
+
+-- 10. Prix moyens des livres par maisons d’édition. (10 pts)
+SELECT pub_name, AVG(price) AS PM
+FROM titles t JOIN publishers p ON t.pub_id = p.pub_id
+GROUP BY p.pub_name;
+
+-- 11. Les 3 auteurs ayant les plus de livres (10 pts
+SELECT CONCAT(a.au_fname, ' ', a.au_lname) AS fullname,
+COUNT(t.title_id)AS Dcpte FROM authors a
+JOIN titleauthor ta ON a.au_id = ta.au_id
+GROUP BY a.au_id, a.au_fname, a.au_lname ORDER BY Dcpte DESC limit 3;
+
