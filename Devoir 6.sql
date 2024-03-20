@@ -38,7 +38,7 @@ JOIN (
     SELECT pub_id, AVG(salary) AS SM
     FROM employees
     GROUP BY pub_id
-) SMe ON E.pub_id = SMe.pub_id
+ ) SMe ON E.pub_id = SMe.pub_id
 WHERE salary > SMe.SM;
 
 -- 6. Noms complets des employés qui ont le salaire minimum de leur grade (10 pts)
@@ -51,7 +51,13 @@ JOIN (
 ) min_sal ON E.job_id = min_sal.job_id AND E.salary = min_sal.minsalary;
 
 -- 7. De quels types sont les livres les plus vendus? (10 pts)
-SELECT type FROM titles t ORDER BY t.ytd_sales DESC limit 1;
+-- SELECT type FROM titles t ORDER BY t.ytd_sales DESC limit 1;
+SELECT t.type, SUM(s.qty) AS total_quantity
+FROM titles t
+JOIN sales s ON t.title_id = s.title_id
+GROUP BY t.type
+ORDER BY total_quantity DESC;
+
 
 -- 8. Pour chaque boutique, les 2 livres les plus vendus et leurs prix. (10 pts)
 SELECT s.stor_id, t.title, t.price 
@@ -62,18 +68,27 @@ ORDER BY s.qty DESC
 LIMIT publisherstitleauthorsalesauthors2;
 
 -- 9. Les auteurs des 5 livres les plus vendus. (10 pts)
-SELECT CONCAT(a.au_fname, ' ', a.au_lname) AS fullname
-FROM authors a
-JOIN titleauthor ta ON a.au_id = ta.au_id
-JOIN titles t ON ta.title_id = t.title_id
-ORDER BY t.ytd_sales DESC
-LIMIT 5;-- ou encore le code en dessous
-SELECT a.au_fname, a.au_lname
-FROM authors a
-JOIN titleauthor ta ON a.au_id = ta.au_id
-JOIN titles t ON ta.title_id = t.title_id
-ORDER BY t.ytd_sales DESC
+-- SELECT CONCAT(a.au_fname, ' ', a.au_lname) AS fullname
+-- FROM authors a
+-- JOIN titleauthor ta ON a.au_id = ta.au_id
+-- JOIN titles t ON ta.title_id = t.title_id
+-- ORDER BY t.ytd_sales DESC
+-- LIMIT 5;-- ou encore le code en dessous
+-- SELECT a.au_fname, a.au_lname
+-- FROM authors a
+-- JOIN titleauthor ta ON a.au_id = ta.au_id
+--  JOIN titles t ON ta.title_id = t.title_id
+-- ORDER BY t.ytd_sales DESC
+-- LIMIT 5;
+SELECT a.au_fname, a.au_lname, t.title, SUM(s.qty) AS total_sales
+FROM sales s
+JOIN titles t ON s.title_id = t.title_id
+JOIN titleauthor ta ON t.title_id = ta.title_id
+JOIN authors a ON ta.au_id = a.au_id
+GROUP BY t.title_id, a.au_id
+ORDER BY total_sales DESC
 LIMIT 5;
+
 
 -- 10. Prix moyens des livres par maisons d’édition. (10 pts)
 SELECT pub_name, AVG(price) AS PM
