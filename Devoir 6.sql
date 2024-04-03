@@ -68,7 +68,7 @@ FROM sales s
 JOIN titles t ON s.title_id = t.title_id 
 JOIN stores st ON s.stor_id = st.stor_id
 ORDER BY s.qty DESC 
-LIMIT publisherstitleauthorsalesauthors2;
+LIMIT 2;
 
 -- 9. Les auteurs des 5 livres les plus vendus. (10 pts)
 -- SELECT CONCAT(a.au_fname, ' ', a.au_lname) AS fullname
