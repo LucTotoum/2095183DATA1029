@@ -40,5 +40,28 @@ JOIN suppliers s ON p.supplier_id = s.id
 GROUP BY cp.product_id
 ORDER BY "Qté Vdue" DESC
 LIMIT 3;
+-- apres votre intervation, nous pouvons dire:
+SELECT p.name AS "Produit", s.name AS "Fournisseur",
+COUNT(cp.product_id) AS "Nombre de Commandes"
+FROM orders o
+JOIN carts c ON o.cart_id = c.id
+JOIN cart_product cp ON c.id = cp.cart_id
+JOIN products p ON cp.product_id = p.id
+JOIN suppliers s ON p.supplier_id = s.id
+GROUP BY p.id
+ORDER BY "Nombre de Commandes" DESC
+LIMIT 3;
+
 -- ---------------------------------------------------------------------------------------------------------------------------
 -- 7. Les chiffres d'affaires par entrepôts. 5pts
+SELECT w.name AS "Entrepôt",
+SUM(o.total_amount) AS "Chiffre d'affaires"
+FROM orders o
+JOIN carts c ON o.cart_id = c.id
+JOIN cart_product cp ON c.id = cp.cart_id
+JOIN products p ON cp.product_id = p.id
+JOIN warehouses w ON p.warehouse_id = w.id
+GROUP BY w.id;
+    
+   
+
